@@ -2,7 +2,6 @@ package programmers.problems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -111,45 +110,42 @@ public class case4 {
 
 	public static int[] solution(int[] progresses, int[] speeds) {
 
-		Queue<Integer> queue = new LinkedList<Integer>();
 
 		List<Integer> list = new ArrayList<Integer>();
 
+		int tempValue = 0;
+		
 		for (int i = 0; i < progresses.length; i++) {
 			int rest = 100 - progresses[i];
 			//Double ceil = Math.ceil(rest / speeds[i]);
 			Integer ceil = rest % speeds[i] > 0 ? (rest / speeds[i])+1 : rest / speeds[i];
 			System.out.println("=========================");
 			System.out.println(ceil);
-			queue.offer(ceil.intValue());
+			
+			if (tempValue > ceil) {
+				list.set(list.size()-1, list.get(list.size()-1) +1);
+			} else {
+				tempValue = ceil;
+				list.add(1);
+			}
+			
 			System.out.println("=========================");
 		}
-
-		int intValue = queue.poll().intValue();
-		list.add(intValue);
-		int size = queue.size();
-
-		for (int i = 0; i < size; i++) {
-
-			int tempValue = queue.poll().intValue();
-
-			if (intValue >= tempValue) {
-				list.add(intValue);
-			} else {
-				intValue = tempValue;
-				list.add(tempValue);
-			}
-		}
-
-		Map<Integer, Long> collect = list.stream().collect(Collectors.groupingBy(v -> v, Collectors.counting()));
-
-		int[] answer = collect.values().stream().mapToInt(v -> v.intValue()).toArray();
-//		
-		IntStream.range(0, answer.length).forEach(v -> {
-			System.out.println(answer[v]);
+		
+		System.out.println("=========================");
+		list.forEach(v -> {
+			System.out.println(v);
 		});
-//		
-		return answer;
+//		System.out.println("=========================");
+		
+//		Map<Integer, Long> collect = list.stream().collect(Collectors.groupingBy(v -> v, Collectors.counting()));
+//
+//		int[] answer = collect.values().stream().mapToInt(v -> v.intValue()).toArray();
+//		IntStream.range(0, answer.length).forEach(v -> {
+//			System.out.println(answer[v]);
+//		});
+		
+		return null;
 	}
 
 	public static int[] solution2(int[] progresses, int[] speeds) {
@@ -158,8 +154,14 @@ public class case4 {
         for(int i=0; i<progresses.length; i++) {
             while(progresses[i] + (day*speeds[i]) < 100) {
                 day++;
+                System.out.println("=========");
+                System.out.println(day);
+                System.out.println("=========");
             }
             dayOfend[day]++;
+            System.out.println("=========2");
+            System.out.println(dayOfend[day]);
+            System.out.println("=========2");
         }
         return Arrays.stream(dayOfend).filter(i -> i!=0).toArray();
 		
@@ -184,17 +186,17 @@ public class case4 {
 
 		// int[] heights = {3,9,9,3,5,7,2};
 
-		int[] progress = {93, 60, 70};
-		int[] speeds = {2, 10, 50};
+		int[] progress = {40, 93, 30, 55, 60, 65};
+		int[] speeds = {60, 1, 30, 5 , 10, 7};
 
 		solution(progress, speeds);
 		
-		int[] solution2 = solution2(progress, speeds);
-		
-		System.out.println("========= 2 Result ==========");
-		IntStream.range(0, solution2.length).forEach(v -> {
-			System.out.println(solution2[v]);
-		});
+//		int[] solution2 = solution2(progress, speeds);
+//		
+//		System.out.println("========= 2 Result ==========");
+//		IntStream.range(0, solution2.length).forEach(v -> {
+//			System.out.println(solution2[v]);
+//		});
 
 	}
 }
