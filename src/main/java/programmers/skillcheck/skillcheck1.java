@@ -1,8 +1,7 @@
 package programmers.skillcheck;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 
 public class skillcheck1 {
 
@@ -106,6 +105,65 @@ public class skillcheck1 {
 		return 0;
 	}
 
+	public static boolean solution2(String s) {
+        boolean answer = true;
+
+        String temp = s.toLowerCase();
+        
+        if (!temp.contains("p") && !temp.contains("y")) {
+        	return false;
+        }
+
+        char[] charArray = temp.toCharArray();
+        int tempP = 0;
+        int tempY = 0;
+        
+        for (int i=0; i<charArray.length; i++) {
+        	String valueOf = String.valueOf(charArray[i]);
+        	
+        	if (valueOf.equals("p")) {
+        		tempP++;
+        	}
+        	
+        	if (valueOf.equals("y")) {
+        		tempY++;
+        	}
+        }
+        
+        if (tempP != tempY) {
+        	return false;
+        }
+        
+        
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        System.out.println("Hello Java");
+        return answer;
+    }
+	
+	public static String solution(String[] participant, String[] completion) {
+        String answer = "";
+        
+        HashMap<String, Integer> result = new HashMap<String, Integer>();
+        
+        for (int i=0; i<participant.length; i++) {
+        	String getString = participant[i];
+        	
+        	if (!result.containsKey(getString)) {
+        		result.put(getString, 1);
+        	} else {
+        		result.replace(getString, result.get(getString) + 1);
+        	}
+        }
+        
+        for (int i=0; i<completion.length; i++) {
+        	String getString = completion[i];
+        	result.replace(getString, result.get(getString) - 1);
+        }
+        
+        answer = result.entrySet().stream().filter(v -> v.getValue() == 1).findFirst().get().getKey();
+        return answer;
+    }
+	
 	public static void main(String[] args) {
 
 //		int[] d = {2,2,3,3};
@@ -113,8 +171,20 @@ public class skillcheck1 {
 //		
 //		solution(d , budget);
 
-		String dartResult = "1S*2T*3S";
+		//String dartResult = "1S*2T*3S";
 
-		solution(dartResult);
+		//solution(dartResult);
+		
+		String s = "pPoooyY";
+		
+		//System.out.println(solution2(s));
+		
+		String[] participant = {"mislav", "stanko", "mislav", "ana"};
+		String[] completion = {"stanko", "ana", "mislav"};
+		
+		solution(participant, completion);
+		
+		
 	}
+	
 }
