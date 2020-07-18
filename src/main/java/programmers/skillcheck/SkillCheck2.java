@@ -1,11 +1,15 @@
 package programmers.skillcheck;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SkillCheck2 {
 
-	public static int solution(int m, int n, String[] board) {
+	private static int max = 0;
+	private static int limit;
+	
+ 	public static int solution(int m, int n, String[] board) {
 		int answer = 0;
 
 		while (true) {
@@ -104,12 +108,77 @@ public class SkillCheck2 {
 		return answer;
 	}
 
+	public static int solution(int[][] land) {
+		
+		int result = 0;
+		limit = land.length;
+				
+		for(int i=0; i<land.length; i++) {
+			
+			add(land , 0 , -1, 5);
+		}
+		
+		System.out.println("max");
+		System.out.println(max);
+		return result;
+	}
+	
+	public static void add(int[][] list, int temp, int index, int lastIndex) {
+		
+		index++;
+		
+		if (index == limit) {
+			if (max < temp) {
+				max = temp;
+			}
+			return;
+		}
+		
+		int tempIndex = 5;
+		
+		
+		for(int j=0; j<list[index].length; j++) {
+			if (lastIndex != j) {
+				tempIndex = j;
+				add(list , temp + list[index][j] , index, tempIndex);
+			} 
+		}
+		
+	}
+	
+	
+	public static int solution2(int[][] land) {
+		
+		int result = 0;
+				
+		for(int i=0; i<land.length-1; i++) {
+			land[i+1][0] += Math.max(land[i][1], Math.max(land[i][2], land[i][3])); 
+			land[i+1][1] += Math.max(land[i][0], Math.max(land[i][2], land[i][3]));
+			land[i+1][2] += Math.max(land[i][0], Math.max(land[i][1], land[i][3]));
+			land[i+1][3] += Math.max(land[i][0], Math.max(land[i][1], land[i][2]));
+		}
+
+		
+		System.out.println(Arrays.stream(land[land.length-1]).max().getAsInt());
+		
+//		
+//		System.out.println("max");
+//		System.out.println(max);
+		return result;
+	}
+
 	public static void main(String[] args) {
 
-		int m = 6;
-		int n = 6;
-		String[] board = { "TTTANT", "RRFACC", "RRRFCC", "TRRRAA", "TTMMMF", "TMMTTJ" };
+//		int m = 6;
+//		int n = 6;
+//		String[] board = { "TTTANT", "RRFACC", "RRRFCC", "TRRRAA", "TTMMMF", "TMMTTJ" };
+//
+//		solution(m, n, board);
 
-		solution(m, n, board);
+		int[][] rand = {{1, 2, 3, 5}, {5, 6, 7, 100}, {4, 3, 2, 1}, {12,10,11,9}};
+		//int[][] rand = {{1,1,1,1}, {2,2,2,2}, {3,4,3,4}, {5,5,6,6}};
+		
+		//int[][] rand = {{1, 2, 3, 5}, {5, 6, 7, 8}, {4, 3, 2, 1}};
+		System.out.println(solution2(rand));
 	}
 }
