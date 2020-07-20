@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SkillCheck2 {
+public class SkillCheck2forLv2 {
 
 	private static int max = 0;
 	private static int limit;
