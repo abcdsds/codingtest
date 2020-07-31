@@ -34,7 +34,6 @@ public class Case6 {
 		// 4 - 5
 		// 5 - 4
 		
-		
 		boolean[] visit = new boolean[n];
 		int answer = 0;
 		for (int i=0; i<n; i++) {
