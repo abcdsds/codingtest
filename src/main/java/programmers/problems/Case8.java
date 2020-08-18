@@ -6,14 +6,17 @@ public class Case8 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String s = "abcabcabcabcdededededede";
+		String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 		int stringLength = s.length();
 		System.out.println(s.length());
 		
+		if (stringLength < 2) {
+			System.out.println(stringLength);
+			System.exit(0);
+		}
 		ArrayList<String> list = new ArrayList<String>();
-		int resultSize = 0;
-		//for (int i=9; i<=stringLength/2; i++) {
-		for (int i=1; i<=12; i++) {
+		for (int i=1; i<=stringLength/2; i++) {
+		//for (int i=3; i<=3; i++) {
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -30,7 +33,8 @@ public class Case8 {
 				
 				if (j+i > s.length()) {
 					//System.out.println(j+i);
-					sb.append(tempWord+s.substring(j, stringLength));
+					String result = tempCount > 1 ? tempCount+tempWord : tempWord;
+					sb.append(result+s.substring(j, stringLength));
 					break;
 				}
 				
@@ -39,7 +43,7 @@ public class Case8 {
 				boolean equals = tempWord.equals(s.substring(j, j+i));
 				
 				if (equals) {
-					System.out.println(tempWord);
+					//System.out.println(tempWord);
 					tempCount++;
 				} 
 				
@@ -50,7 +54,7 @@ public class Case8 {
 				}
 
 				tempWord = s.substring(j, j+i);
-				
+				System.out.println(tempCount);
 				//System.out.println(sb.toString());
 			}
 
@@ -58,22 +62,17 @@ public class Case8 {
 			list.add(sb.toString());
 			System.out.println("clear");
 		}
-		int result = list.stream().mapToInt(v -> v.length()).min().getAsInt();
-		System.out.println(result);
-		//System.out.println(s.length()/2);
 		
-		//for (int i=1; i<=s.length()/2; i++) {
-//		for (int i=1; i<=1; i++) {
-//			
-//			String result = "";
-//			int tempCount = 1;
-//			String tempWord = "";
-//			
-//			for (int j=0; j<s.length(); j++) {
-//			
-//				if (split[j].equals(split[j+i])) {
-//					
-//				}
+		int result = list.stream().mapToInt(v -> v.length()).min().getAsInt();
+		System.out.println("result = " + result);
+		
+		
+		
+//		for (int i=0; i<list.size(); i++) {
+//			String v = list.get(i);
+//			if (v.length() < 10) {
+//				System.out.println(i);
+//				System.out.println(v);
 //			}
 //		}
 		
