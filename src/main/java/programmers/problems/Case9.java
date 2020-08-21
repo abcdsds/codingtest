@@ -5,21 +5,19 @@ import java.util.stream.Collectors;
 
 public class Case9 {
 
-	private static String result = "";
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		String p = "()))((()";
-
+		String p = "))(()(";
 		//System.out.println(reverseString("))(("));
-		splitString(p);
-		System.out.println(result);
+		System.out.println(splitString(p));
 
 	}
 
-	public static void splitString(String p) {
+	public static String splitString(String p) {
 
+		if (p.isEmpty()) return p;
 		String[] split = p.split("");
 
 		int leftCount = 0;
@@ -42,37 +40,41 @@ public class Case9 {
 				System.out.println(i);
 				System.out.println(leftCount);
 				System.out.println(rightCount);
-				index = i;
+				index = i+1;
 				break;
 			}
 		}
 
-		String rightString = p.substring(index + 1, p.length());
-		String leftString = p.substring(0, index + 1);
-		System.out.println(leftString);
-		System.out.println(rightString);
+		String leftString = p.substring(0, index);
+		String rightString = p.substring(index, p.length());
 
 		System.out.println(check(leftString));
 		System.out.println(check(rightString));
 
-		if (check(leftString) && check(rightString)) {
-			result += leftString + rightString;
-			return;
+		if (check(leftString)) {
+			return leftString+splitString(rightString);
 		}
 
-		if (check(leftString) && !check(rightString)) {
-			result += leftString;
-			splitString(rightString);
+		System.out.println("====================");
+		String answer = "("+splitString(rightString)+")";
+		
+		String resultString = leftString.substring(1, leftString.length());
+		if (resultString.length() - 1 == 0) {
+			resultString = "";
+		} else {
+			resultString = resultString.substring(0, leftString.length() - 2);
 		}
 
-		if (!check(leftString)) {
-			result += reverseString(leftString) + rightString;
-		}
+		answer += reverseString(resultString);
+		
+		return answer;
 	}
 
 	private static String reverseString(String leftString) {
 		// TODO Auto-generated method stub
-
+		if (leftString.isEmpty()) {
+			return "";
+		}
 		String[] split = leftString.split("");
 		for (int i = 0; i < split.length; i++) {
 			String string = split[i];
